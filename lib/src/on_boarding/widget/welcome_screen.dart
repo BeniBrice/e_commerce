@@ -57,7 +57,7 @@ class WelcomeScreen extends StatelessWidget {
             SizedBox(
               height: 20.h,
             ),
-            GradientBtn(
+            CustomButton(
               text: AppText.kstarted,
               onTap: () {
                 ///TODO: uncomment to starage bool

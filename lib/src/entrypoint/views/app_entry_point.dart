@@ -53,35 +53,47 @@ class AppEntryPoint extends StatelessWidget {
                   ),
                   onTap: (i) {
                     tabIndexNotifier.setIndex = i;
+                    print(tabIndexNotifier.index);
                   },
-                  items: const [
+                  items: [
                     BottomNavigationBarItem(
                       icon: Icon(
                         AntDesign.home,
-                        color: Kolors.kPrimary,
+                        color: tabIndexNotifier.index == 0
+                            ? Kolors.kPrimary
+                            : null,
                         size: 24,
                       ),
                       label: 'Home',
                     ),
                     BottomNavigationBarItem(
                       icon: Icon(
-                        Ionicons.heart_outline,
+                        tabIndexNotifier.index == 1
+                            ? Ionicons.heart
+                            : Ionicons.heart_outline,
                         color: Kolors.kPrimary,
                         size: 24,
                       ),
                       label: 'WishList',
                     ),
                     BottomNavigationBarItem(
-                      icon: Icon(
-                        MaterialCommunityIcons.shopping_outline,
-                        color: Kolors.kPrimary,
-                        size: 24,
+                      icon: Badge(
+                        label: const Text('6'),
+                        child: Icon(
+                          tabIndexNotifier.index == 2
+                              ? MaterialCommunityIcons.shopping
+                              : MaterialCommunityIcons.shopping_outline,
+                          color: Kolors.kPrimary,
+                          size: 24,
+                        ),
                       ),
                       label: 'Cart',
                     ),
                     BottomNavigationBarItem(
                       icon: Icon(
-                        EvilIcons.user,
+                        tabIndexNotifier.index == 2
+                            ? EvilIcons.user
+                            : EvilIcons.user,
                         color: Kolors.kPrimary,
                         size: 34,
                       ),

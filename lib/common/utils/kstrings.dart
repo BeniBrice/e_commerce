@@ -13,9 +13,10 @@ class AppText {
   static const String kVerifyText =
       'Please enter the code we just sent to email';
   static const String kSearch = 'Search';
+  static const String kCartErrorText = 'Please select size and color to proced';
 
   static const String kProfilePic =
-      'https://d326fntlu7tb1e.cloudfront.net/uploads/0856609b-21e8-4e73-85cb-1f9a93de81f4-avatar.png';
+      'https://plus.unsplash.com/premium_photo-1671656349322-41de944d259b?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8cHJvZmlsZSUyMGltYWdlfGVufDB8fDB8fHww';
 
   static const String kCollection = 'New Collection';
 

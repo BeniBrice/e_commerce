@@ -1,8 +1,12 @@
 import 'package:e_commerce/common/utils/app_routes.dart';
 import 'package:e_commerce/common/utils/environment.dart';
 import 'package:e_commerce/common/utils/kstrings.dart';
+import 'package:e_commerce/src/categories/controller/categories_notify.dart';
 import 'package:e_commerce/src/entrypoint/controller/bottom_tab_notifier.dart';
+import 'package:e_commerce/src/home/controller/home_tab_notify.dart';
 import 'package:e_commerce/src/on_boarding/controller/onbording_notify.dart';
+import 'package:e_commerce/src/products/controller/colors_size_notifiy.dart';
+import 'package:e_commerce/src/products/controller/product_notifier.dart';
 import 'package:e_commerce/src/splash_screen/views/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -21,6 +25,18 @@ void main() async {
       ),
       ChangeNotifierProvider(
         create: (context) => TabIndexNotifier(),
+      ),
+      ChangeNotifierProvider(
+        create: (context) => CategoriesNotify(),
+      ),
+      ChangeNotifierProvider(
+        create: (context) => HomeTabNotify(),
+      ),
+      ChangeNotifierProvider(
+        create: (context) => ProductNotifier(),
+      ),
+      ChangeNotifierProvider(
+        create: (context) => ColorsSizeNotifiy(),
       ),
     ],
     child: const MyApp(),
