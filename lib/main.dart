@@ -1,6 +1,7 @@
 import 'package:e_commerce/common/utils/app_routes.dart';
 import 'package:e_commerce/common/utils/environment.dart';
 import 'package:e_commerce/common/utils/kstrings.dart';
+import 'package:e_commerce/src/auth/controller/password_notifier.dart';
 import 'package:e_commerce/src/categories/controller/categories_notify.dart';
 import 'package:e_commerce/src/entrypoint/controller/bottom_tab_notifier.dart';
 import 'package:e_commerce/src/home/controller/home_tab_notify.dart';
@@ -37,6 +38,9 @@ void main() async {
       ),
       ChangeNotifierProvider(
         create: (context) => ColorsSizeNotifiy(),
+      ),
+      ChangeNotifierProvider(
+        create: (context) => PasswordNotifier(),
       ),
     ],
     child: const MyApp(),
