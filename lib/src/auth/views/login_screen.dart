@@ -4,9 +4,13 @@ import 'package:e_commerce/common/widgets/back_button.dart';
 import 'package:e_commerce/common/widgets/custom_button.dart';
 import 'package:e_commerce/common/widgets/email_textfield.dart';
 import 'package:e_commerce/common/widgets/password_field.dart';
+import 'package:e_commerce/src/auth/controller/auth_notifier.dart';
+import 'package:e_commerce/src/auth/model/login_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -35,7 +39,9 @@ class _LoginScreenState extends State<LoginScreen> {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Kolors.kWhite,
-        leading: const AppBackButton(),
+        leading: AppBackButton(
+          onTap: () => context.go('/home'),
+        ),
       ),
       body: ListView(
         children: [
@@ -96,13 +102,27 @@ class _LoginScreenState extends State<LoginScreen> {
                 SizedBox(
                   height: 20.h,
                 ),
-                CustomButton(
-                  onTap: () {},
-                  text: 'Login',
-                  btnWidth: ScreenUtil().screenWidth,
-                  btnHieght: 40,
-                  radius: 25,
-                )
+                context.watch<AuthNotifier>().isLoading
+                    ? const Center(
+                        child: CircularProgressIndicator(
+                          color: Kolors.kPrimary,
+                        ),
+                      )
+                    : CustomButton(
+                        onTap: () {
+                          LoginModel loginModel = LoginModel(
+                            password: _passwordController.text,
+                            username: _userNameController.text,
+                          );
+                          String data = loginModelToJson(loginModel);
+                          print(data);
+                          context.read<AuthNotifier>().loginFunc(data, context);
+                        },
+                        text: 'Login',
+                        btnWidth: ScreenUtil().screenWidth,
+                        btnHieght: 40,
+                        radius: 25,
+                      )
               ],
             ),
           ),
@@ -116,7 +136,9 @@ class _LoginScreenState extends State<LoginScreen> {
               bottom: 110,
             ),
             child: GestureDetector(
-              onTap: () {},
+              onTap: () {
+                context.push('/register');
+              },
               child: Text(
                 'Do not have account please Register',
                 style: appStyle(

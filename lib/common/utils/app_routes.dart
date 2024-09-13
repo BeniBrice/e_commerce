@@ -1,6 +1,7 @@
 // ignore_for_file: unused_element
 
 import 'package:e_commerce/src/auth/views/login_screen.dart';
+import 'package:e_commerce/src/auth/views/registratin_screen.dart';
 import 'package:e_commerce/src/categories/views/categories_page.dart';
 import 'package:e_commerce/src/categories/views/categories_screen.dart';
 import 'package:e_commerce/src/entrypoint/views/app_entry_point.dart';
@@ -62,10 +63,10 @@ final GoRouter _router = GoRouter(
       path: '/login',
       builder: (context, state) => const LoginScreen(),
     ),
-    // GoRoute(
-    //   path: '/register',
-    //   builder: (context, state) => const RegistrationPage(),
-    // ),
+    GoRoute(
+      path: '/register',
+      builder: (context, state) => const RegistrationPage(),
+    ),
     GoRoute(
       path: '/categories',
       builder: (context, state) => const CategoriesPage(),

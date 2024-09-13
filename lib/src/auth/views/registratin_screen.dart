@@ -4,19 +4,23 @@ import 'package:e_commerce/common/widgets/back_button.dart';
 import 'package:e_commerce/common/widgets/custom_button.dart';
 import 'package:e_commerce/common/widgets/email_textfield.dart';
 import 'package:e_commerce/common/widgets/password_field.dart';
+import 'package:e_commerce/src/auth/controller/auth_notifier.dart';
+import 'package:e_commerce/src/auth/model/registration_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class RegistrationPage extends StatefulWidget {
+  const RegistrationPage({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<RegistrationPage> createState() => _RegistrationPageState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _RegistrationPageState extends State<RegistrationPage> {
   final TextEditingController _userNameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final FocusNode _passwordNode = FocusNode();
 
@@ -24,6 +28,7 @@ class _LoginScreenState extends State<LoginScreen> {
   void dispose() {
     _userNameController.dispose();
     _passwordController.dispose();
+    _emailController.dispose();
     _passwordNode.dispose();
     super.dispose();
   }
@@ -88,6 +93,24 @@ class _LoginScreenState extends State<LoginScreen> {
                 SizedBox(
                   height: 25.h,
                 ),
+                EmailTextField(
+                  radius: 25,
+                  focusNode: _passwordNode,
+                  hintText: 'Email',
+                  controller: _emailController,
+                  prefixIcon: const Icon(
+                    CupertinoIcons.mail,
+                    size: 20,
+                    color: Kolors.kGray,
+                  ),
+                  keyboardType: TextInputType.emailAddress,
+                  onEditingComplete: () {
+                    FocusScope.of(context).requestFocus(_passwordNode);
+                  },
+                ),
+                SizedBox(
+                  height: 25.h,
+                ),
                 PasswordField(
                   controller: _passwordController,
                   focusNode: _passwordNode,
@@ -96,38 +119,35 @@ class _LoginScreenState extends State<LoginScreen> {
                 SizedBox(
                   height: 20.h,
                 ),
-                CustomButton(
-                  onTap: () {},
-                  text: 'Login',
-                  btnWidth: ScreenUtil().screenWidth,
-                  btnHieght: 40,
-                  radius: 25,
-                )
+                context.watch<AuthNotifier>().isLoading
+                    ? const Center(
+                        child: CircularProgressIndicator(
+                          color: Kolors.kPrimary,
+                        ),
+                      )
+                    : CustomButton(
+                        onTap: () {
+                          RegistrationModel registrationModel =
+                              RegistrationModel(
+                            username: _userNameController.text,
+                            password: _passwordController.text,
+                            email: _emailController.text,
+                          );
+                          String data =
+                              registrationModelToJson(registrationModel);
+                          context
+                              .read<AuthNotifier>()
+                              .registrationFunc(data, context);
+                        },
+                        text: 'Sign up',
+                        btnWidth: ScreenUtil().screenWidth,
+                        btnHieght: 40,
+                        radius: 25,
+                      )
               ],
             ),
           ),
         ],
-      ),
-      bottomNavigationBar: SizedBox(
-        height: 130.h,
-        child: Center(
-          child: Padding(
-            padding: const EdgeInsets.only(
-              bottom: 110,
-            ),
-            child: GestureDetector(
-              onTap: () {},
-              child: Text(
-                'Do not have account please Register',
-                style: appStyle(
-                  12,
-                  Colors.blue,
-                  FontWeight.normal,
-                ),
-              ),
-            ),
-          ),
-        ),
       ),
     );
   }

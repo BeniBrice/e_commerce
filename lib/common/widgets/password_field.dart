@@ -24,6 +24,7 @@ class PasswordField extends StatelessWidget {
       return Padding(
         padding: const EdgeInsets.only(bottom: 10.0),
         child: TextFormField(
+          obscureText: pController.password,
           cursorColor: Colors.black,
           textInputAction: TextInputAction.next,
           focusNode: focusNode,
@@ -42,8 +43,8 @@ class PasswordField extends StatelessWidget {
               onTap: () {
                 pController.setPassword();
               },
-              child: const Icon(
-                Icons.visibility_off,
+              child: Icon(
+                pController.password ? Icons.visibility : Icons.visibility_off,
                 color: Kolors.kGrayLight,
               ),
             ),
